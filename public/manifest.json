@@ -1,0 +1,20 @@
+{
+  "short_name": "Jolika",
+  "name": "Jolika",
+  "icons": [
+    {
+      "src": "http://jolika.com/uploads/icon-apple.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "http://jolika.com/uploads/icon-apple2.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#fff",
+  "background_color": "#dc143c"
+}
