@@ -20,7 +20,7 @@ const ProductItem = ({ product }) => {
 
     return (
       <div className="productItem">
-        <Link to="product.php" className="img-product">
+        <Link to="/" className="img-product">
           <img
             src={`${process.env.REACT_APP_APIURL}uploads/products/thumbnails/${imgUrl}`}
             alt={product.name}
@@ -29,10 +29,10 @@ const ProductItem = ({ product }) => {
         <div className="productItemText">
           <div className="ProductTitlePrice">
             <h4>
-              <Link to={`/vendor/`}>{product.vendorId.vendorName}</Link>
+              <Link to="/">{product.vendorId.vendorName}</Link>
             </h4>
             <p>
-              <Link to={`/product/${product.slug}`}>{product.name}</Link>
+              <Link to="/">{product.name}</Link>
             </p>
             <span>
               <Link to="/">

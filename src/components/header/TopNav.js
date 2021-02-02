@@ -32,7 +32,8 @@ const TopNav = () => {
             categories.map((category, index) => (
               <li key={index}>
                 <Link
-                  to={`/category/${category.url_link_en}`}
+                  // to={`/category/${category.url_link_en}`}
+                  to="#"
                   style={styles.capitalize}
                 >
                   {category.category_en}

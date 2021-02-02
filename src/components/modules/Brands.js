@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.min.css';
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.min.css";
 import { Link } from "react-router-dom";
 
 const Brands = () => {
@@ -41,15 +41,20 @@ const Brands = () => {
 
   return (
     <section id="homeBrands" className="py-2">
-    <div className="container">
-      <h2 className="sectionTitle">BRANDS</h2>
-      <Swiper
-          slidesPerView={8}
-        >
-          <SwiperSlide><Link to="category.php"><img src="https://www.canvaswebdesign.com/jolika/uploads/brand6.jpg" alt="" /></Link></SwiperSlide>
-      </Swiper>
-    </div>
-  </section>
+      <div className="container">
+        <h2 className="sectionTitle">BRANDS</h2>
+        <Swiper slidesPerView={8}>
+          <SwiperSlide>
+            <Link to="/">
+              <img
+                src="https://www.canvaswebdesign.com/jolika/uploads/brand6.jpg"
+                alt=""
+              />
+            </Link>
+          </SwiperSlide>
+        </Swiper>
+      </div>
+    </section>
   );
 };
 

@@ -43,18 +43,18 @@ const Header = () => {
           <LocationMenu />
           <Search />
           <div id="accountIcons">
-            <Link to="/register" className="sign-up">
+            <Link to="/" className="sign-up">
               Sign Up
             </Link>
             <span className="sign-up">|</span>
-            <Link to="/login" className="sign-up">
+            <Link to="/" className="sign-up">
               Login
             </Link>
             <div id="cart">
-              <Link to="/cart">
+              <Link to="/">
                 <i className="tiny material-icons">shopping_basket</i>
               </Link>
-              <span id="cartQty">1</span>
+              <span id="cartQty">0</span>
             </div>
           </div>
           <LocationMenuMobile />
