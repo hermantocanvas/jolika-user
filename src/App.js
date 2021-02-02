@@ -16,10 +16,6 @@ import RegisterSosmed from "./components/account/RegisterSosmed";
 import NotFound from "./components/modules/NotFound";
 import Alerts from "./components/modules/Alerts";
 import Account from "./components/account/Account";
-import AlertState from "./context/alert/AlertState";
-import AuthState from "./context/auth/authState";
-import CartState from "./context/cart/cartState";
-import WishlistState from "./context/wishlist/wishlistState";
 import CustomerRoute from "./components/routing/CustomerRoute";
 import EditProduct from "./components/account/products/editProduct/EditProduct";
 import EditBuyerOrder from "./components/account/orders/EditBuyerOrder";
@@ -37,6 +33,11 @@ import Thankyou from "./components/checkoutMarketplace/Thankyou";
 import EditVariant from "./components/account/products/editVariant/EditVariant";
 import Pembayaran from "./components/checkoutMarketplace/pembayaran/Pembayaran";
 
+import AlertState from "./context/alert/AlertState";
+import AuthState from "./context/auth/authState";
+import CartState from "./context/cart/cartState";
+import LocationState from "./context/location/locationState";
+
 const App = () => {
   return (
     <>
@@ -47,7 +48,7 @@ const App = () => {
       <AuthState>
         <AlertState>
           <CartState>
-            <WishlistState>
+            <LocationState>
               <Router>
                 <ScrollToTop>
                   <Header />
@@ -135,7 +136,7 @@ const App = () => {
                   <Footer />
                 </ScrollToTop>
               </Router>
-            </WishlistState>
+            </LocationState>
           </CartState>
         </AlertState>
       </AuthState>

@@ -1,12 +1,11 @@
 import React, { useReducer } from "react";
 import LocationContext from "./locationContext";
 import LocationReducer from "./locationReducer";
-import { LOCATION_ID } from "../types";
-import axios from "axios";
+import { LOCATION_CHANGE_ID } from "../types";
 
 const LocationState = (props) => {
   const storage = localStorage.getItem("locationId");
-  const locationId = storage ? storage : "";
+  const locationId = storage ? storage : "5fcb78d9fdd3f7365c1f54c7";
 
   const initialState = {
     locationId: locationId,
@@ -14,55 +13,24 @@ const LocationState = (props) => {
 
   const [state, dispatch] = useReducer(LocationReducer, initialState);
 
-  const addItemToCart = ({
-    product_id,
-    quantity,
-    note,
-    seller_id,
-    productCombination_id,
-  }) => {
-    const id = productCombination_id || product_id;
-    console.log(id);
-    if (!id) return;
+  const changeLocation = (id) => {
     return dispatch({
-      type: CART_ADD_ITEM,
+      type: LOCATION_CHANGE_ID,
       payload: {
         id,
-        quantity,
-        note,
-        seller_id,
-        product_id,
-        productCombination_id: productCombination_id || "",
       },
     });
   };
 
   const value = {
-    cart: state.cart,
-    products: state.products,
-    loading: state.loading,
-    shippings: state.shippings,
-    getCartCount,
-    addItemToCart,
-    removeItemFromCart,
-    incrementAmount,
-    decrementAmount,
-    updateNote,
-    getCartGroupBySellerId,
-    loadProducts,
-    getMarketplacePriceTotal,
-    getProductByCartItem,
-    isShippingReady,
-    getTotalWeightBySellerId,
-    addShipping,
-    getCheckoutGrandTotal,
-    getCheckoutGrandTotalBySellerId,
-    clearProducts,
-    clearShippings,
+    locationId: state.locationId,
+    changeLocation,
   };
 
   return (
-    <CartContext.Provider value={value}>{props.children}</CartContext.Provider>
+    <LocationContext.Provider value={value}>
+      {props.children}
+    </LocationContext.Provider>
   );
 };
 

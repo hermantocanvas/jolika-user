@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
+import LocationContext from "../../context/location/locationContext";
+
 const LocationMenu = () => {
+  const { locationId, changeLocation } = useContext(LocationContext);
   const [cities, setCities] = useState([]);
 
   useEffect(() => {
@@ -21,13 +24,24 @@ const LocationMenu = () => {
     }
   }
 
+  const onChangeCity = (e) => {
+    changeLocation(e.target.value);
+  };
+
   return (
     <div id="categoryMenu">
       <i className="fa fa-map-marker-alt"></i>
-      <select id="chooseLocation" style={styles.capitalize}>
+      <select
+        onChange={onChangeCity}
+        id="chooseLocation"
+        style={styles.capitalize}
+        value={locationId}
+      >
         {cities &&
-          cities.map((city) => (
-            <option value={city._id}>{city.cityName}</option>
+          cities.map((city, index) => (
+            <option key={index} value={city._id}>
+              {city.cityName}
+            </option>
           ))}
       </select>
     </div>
