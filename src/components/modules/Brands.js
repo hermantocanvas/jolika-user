@@ -1,57 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.min.css";
 import { Link } from "react-router-dom";
 
+import LocationContext from "../../context/location/locationContext";
+
 const Brands = () => {
-  const [products, setProducts] = useState([]);
+  const { locationId } = useContext(LocationContext);
+  const [brands, setBrands] = useState([]);
+
   useEffect(() => {
-    //loadMarketplaceProducts();
+    loadBrands();
     //eslint-disable-next-line
   }, []);
 
-  const loadMarketplaceProducts = async (pageNumber) => {
-    let URL = "";
-    URL += `${process.env.REACT_APP_APIURL}api/v1/browse/marketplace`;
-    let formData = {};
-    formData.pageNumber = parseInt(pageNumber);
-    formData.limitPerPage = 12;
-    formData.sort = "lastest";
-
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
+  async function loadBrands() {
     try {
-      const response = await axios.post(URL, formData, config);
-      const data = response.data;
+      const res = await axios.get(
+        `${process.env.REACT_APP_APIURL}api/v1/vendors/get/homepage/${locationId}`
+      );
 
-      setProducts(data.data);
-    } catch (error) {
-      console.log(error);
+      setBrands(res.data.data);
+    } catch (err) {
+      console.log(err);
     }
-  };
-
-  // if (products === null || products.length === 0) {
-  //   return null;
-  // }
+  }
 
   return (
     <section id="homeBrands" className="py-2">
       <div className="container">
         <h2 className="sectionTitle">BRANDS</h2>
-        <Swiper slidesPerView={8}>
-          <SwiperSlide>
-            <Link to="/">
-              <img
-                src="https://www.canvaswebdesign.com/jolika/uploads/brand6.jpg"
-                alt=""
-              />
-            </Link>
-          </SwiperSlide>
+        <Swiper slidesPerView={8} spaceBetween={20}>
+          {brands &&
+            brands.map((brand) => (
+              <SwiperSlide>
+                <Link to="/">
+                  <img
+                    src={`${process.env.REACT_APP_APIURL}uploads/vendor/${brand.logoImage}`}
+                    alt={brand.vendorName}
+                  />
+                </Link>
+              </SwiperSlide>
+            ))}
         </Swiper>
       </div>
     </section>

@@ -1,52 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import ProductItem from "./ProductItem";
 import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.min.css";
 
+import LocationContext from "../../context/location/locationContext";
+
 const TrendingProducts = () => {
+  const { locationId } = useContext(LocationContext);
   const [products, setProducts] = useState([]);
+
   useEffect(() => {
-    //loadMarketplaceProducts();
+    loadProducts();
     //eslint-disable-next-line
-  }, []);
+  }, [locationId]);
 
-  const loadMarketplaceProducts = async (pageNumber) => {
-    let URL = "";
-    URL += `${process.env.REACT_APP_APIURL}api/v1/browse/marketplace`;
-    let formData = {};
-    formData.pageNumber = parseInt(pageNumber);
-    formData.limitPerPage = 12;
-    formData.sort = "lastest";
-
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
+  async function loadProducts() {
     try {
-      const response = await axios.post(URL, formData, config);
-      const data = response.data;
+      const res = await axios.get(
+        `${process.env.REACT_APP_APIURL}api/v1/products/get/trending/${locationId}`
+      );
 
-      setProducts(data.data);
-    } catch (error) {
-      console.log(error);
+      console.log(res.data.data);
+
+      setProducts(res.data.data);
+    } catch (err) {
+      console.log(err);
     }
-  };
-
-  // if (products === null || products.length === 0) {
-  //   return null;
-  // }
+  }
 
   return (
-    <section className="py-2">
+    <section id="homeNewIn" className="py-2">
       <div className="container">
         <h2 className="sectionTitle">TRENDING</h2>
-        <Swiper slidesPerView={4}>
-          <SwiperSlide>
-            <ProductItem />
-          </SwiperSlide>
+        <Swiper slidesPerView={4} spaceBetween={20}>
+          {products &&
+            products.map((product, index) => (
+              <SwiperSlide key={index}>
+                <ProductItem product={product} />
+              </SwiperSlide>
+            ))}
         </Swiper>
       </div>
     </section>
