@@ -3,10 +3,20 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const ProductItem = ({ product }) => {
-  console.log(product);
-
   if (product) {
-    const imgUrl = product.combinations[0].images[0].fileName;
+    let imgUrl;
+    let price;
+    let discountedPrice;
+
+    if(product.combinations && product.combinations.length > 0) {
+      imgUrl = product.combinations[0].images[0].fileName;
+      price = product.combinations[0].price;
+      discountedPrice = product.combinations[0].discountedPrice;
+    } else {
+      imgUrl = product.images[0].fileName;
+      price = product.price;
+      discountedPrice = product.discountedPrice;
+    }
 
     const formatter = new Intl.NumberFormat("id-ID", {
       style: "currency",
@@ -15,12 +25,9 @@ const ProductItem = ({ product }) => {
       minimumFractionDigits: 0,
     });
 
-    const price = product.combinations[0].price;
-    const discountedPrice = product.combinations[0].discountedPrice;
-
     return (
       <div className="productItem">
-        <Link to="/" className="img-product">
+        <Link to={`/product/${product.slug}`} className="img-product">
           <img
             src={`${process.env.REACT_APP_APIURL}uploads/products/thumbnails/${imgUrl}`}
             alt={product.name}
@@ -32,10 +39,10 @@ const ProductItem = ({ product }) => {
               <Link to="/">{product.vendorId.vendorName}</Link>
             </h4>
             <p>
-              <Link to="/">{product.name}</Link>
+              <Link to={`/product/${product.slug}`}>{product.name}</Link>
             </p>
             <span>
-              <Link to="/">
+              <Link to={`/product/${product.slug}`}>
                 {discountedPrice > 0
                   ? formatter.format(price)
                   : formatter.format(discountedPrice)}

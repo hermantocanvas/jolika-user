@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   EmailShareButton,
@@ -12,10 +12,10 @@ import {
 } from "react-share";
 
 import DisplayImage from "./DisplayImage";
-import VariantProductMarketplace from "./variantOptions/VariantProductMarketplace";
 import CartContext from "../../context/cart/cartContext";
 import AuthContext from "../../context/auth/authContext";
 import AlertContext from "../../context/alert/alertContext";
+
 function capitalize(s) {
   return s.toLowerCase().replace(/\b./g, function (a) {
     return a.toUpperCase();
@@ -29,89 +29,37 @@ const formatter = new Intl.NumberFormat("id-ID", {
   minimumFractionDigits: 0,
 });
 
-const ProductDetail = ({
-  product,
-  productCombination,
-  setProductCombination,
-  cities,
-  alias,
-  quantity,
-  setQuantity,
-  note,
-  setNote,
-}) => {
+const ProductDetail = ({ stock, product, price, discountedPrice, productName }) => {
   const { currentUser } = useContext(AuthContext);
   const { addItemToCart } = useContext(CartContext);
   const { setAlert } = useContext(AlertContext);
 
-  // let productName = product.name;
-  // const district = cities.district.district;
-  // const province = cities.province.province;
-  // let marketPrice = product.marketPrice;
-  // let marketplacePrice = product.marketplacePrice;
-  // let stock = product.stock;
+  const [quantity, setQuantity] = useState(1);
 
-  // if (productCombination) {
-  //   marketPrice = productCombination.marketPrice;
-  //   marketplacePrice = productCombination.marketplacePrice;
-  //   stock = productCombination.stock;
+  //const isOwner = currentUser && currentUser._id === product.user;
+ 
+  const handleBuy = () => {
+    if (quantity === "" || quantity <= 0) {
+      setAlert(`Kuantitas tidak boleh 0 atau kosong".`, "danger");
+    } else if (quantity > stock) {
+      setAlert(
+        `Maaf stok tinggal ${stock}. Silahkan memilih kuantitas lebih kecil`,
+        "danger"
+      );
+    } else {
+      //send to cartState
+      addItemToCart({
+        product_id: product._id,
+        quantity: quantity,
+        seller_id: product.user,
+      });
 
-  //   if (productCombination.variantDetail1_id) {
-  //     productName += ` ${productCombination.variantDetail1_id.nameEn}`;
-  //   }
-
-  //   if (productCombination.variantDetail2_id) {
-  //     productName += ` - ${productCombination.variantDetail2_id.nameEn}`;
-  //   }
-  // }
-
-  // const isOwner = currentUser && currentUser._id === product.user;
-  // const sellerName = product.username;
-
-  // const handleBuy = () => {
-  //   if (quantity === "" || quantity <= 0) {
-  //     setAlert(`Kuantitas tidak boleh 0 atau kosong".`, "danger");
-  //   } else if (quantity > stock) {
-  //     setAlert(
-  //       `Maaf stok tinggal ${stock}. Silahkan memilih kuantitas lebih kecil`,
-  //       "danger"
-  //     );
-  //   } else {
-  //     //send to cartState
-  //     addItemToCart({
-  //       product_id: product._id,
-  //       quantity: quantity,
-  //       note: note,
-  //       seller_id: product.user,
-  //       productCombination_id: productCombination && productCombination._id,
-  //     });
-
-  //     setAlert(
-  //       `Produk berhasil ditambahkan ke keranjang. Klik keranjang untuk checkout`,
-  //       "success"
-  //     );
-  //   }
-  // };
-
-  // let stars = [];
-  // for (let i = 1; i <= 5; i++) {
-  //   if (parseInt(product.productRating) >= i) {
-  //     stars.push(<span key={i} className="fa fa-star star checked"></span>);
-  //   } else {
-  //     stars.push(<span key={i} className="fa fa-star star"></span>);
-  //   }
-  // }
-
-  // let sellerStars = [];
-  // for (let i = 1; i <= 5; i++) {
-  //   if (parseInt(product.sellerRating) >= i) {
-  //     sellerStars.push(
-  //       <span key={i} className="fa fa-star star checked"></span>
-  //     );
-  //   } else {
-  //     sellerStars.push(<span key={i} className="fa fa-star star"></span>);
-  //   }
-  // }
+      setAlert(
+        `Produk berhasil ditambahkan ke keranjang. Klik keranjang untuk checkout`,
+        "success"
+      );
+    }
+  };
 
   return (
     <>
@@ -119,7 +67,7 @@ const ProductDetail = ({
         <DisplayImage />
         <div className="productDetail card">
           <h4>KARA Bakery</h4>
-          <h1>Coco Sprinkle Cake</h1>
+          <h1>{productName}</h1>
           <h2>Rp 160.000</h2>
           <div className="productPrice">
             <p>Pre Order</p>
@@ -181,7 +129,7 @@ const ProductDetail = ({
               >
                 -
               </button>
-              <input type="number" placeholder="QTY" value="1" />
+              <input type="number" value={quantity} placeholder="QTY" onChange={setQuantity(e => e.target.value)} />
               <button
                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                 className="plus"

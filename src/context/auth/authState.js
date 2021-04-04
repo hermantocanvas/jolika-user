@@ -26,7 +26,7 @@ import {
 
 const AuthState = (props) => {
   const initialState = {
-    isAuthenticated: false,
+    isAuthenticated: false, 
     user: null,
     error: null,
     lastProductPage: null, //last product page visited by user
