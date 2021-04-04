@@ -81,6 +81,16 @@ const Product = ({ match }) => {
     currDate.setDate(currDate.getDate() + product.preorderDay);
   } 
 
+  const onIncreaseQty = () => {
+    setQty(qty + 1);
+  }
+
+  const onDecreaseQty = () => {
+    if(qty > 0) {
+      setQty(qty - 1);
+    }
+  }
+
   return ( 
     <>
       <section id="productDetail">
@@ -169,14 +179,14 @@ const Product = ({ match }) => {
             <label>Quantity</label>
             <div className="inputQty">
               <button
-                onClick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                onClick={onDecreaseQty}
                 className="minus"
               >
                 -
               </button>
               <input type="number" value={qty} placeholder="QTY" />
               <button
-                onClick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                onClick={onIncreaseQty}
                 className="plus"
               >
                 +
@@ -186,7 +196,7 @@ const Product = ({ match }) => {
           <br />
           <button className="btn-block">ADD TO CART</button>
           <br />
-          <p><i className="fa fa-whatsapp"></i> Ask About This Product</p>
+          <p><a target="_blank" rel="noopener noreferrer" href="https://www.whatsapp.com"><i className="fa fa-whatsapp"></i> Ask About This Product</a></p>
           <div id="productSosmed">
             <a href="#" alt="Favorit">
               <i className="far fa-heart"></i>
