@@ -29,66 +29,54 @@ const Register = () => {
 
   useEffect(() => {
     if (error) {
-      if (error === "Request failed with status code 400") {
-        setAlert(
-          "Email atau Username sudah pernah terdaftar. Silahkan login atau gunakan email/username lain.",
-          "danger"
-        );
-        clearErrors();
-      } else if (error === "Request failed with status code 500") {
-        setAlert(
-          "Username tidak tersedia. Silahkan gunakan username lain.",
-          "danger"
-        );
-      } else {
-        setAlert(error, "danger");
-        clearErrors();
-      }
+      setAlert(error, "danger");
+      clearErrors();
     }
     //eslint-disable-next-line
   }, [error]);
 
   const [user, setUser] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
+    handphone: "",
+    hpCountryCode: "+62",
     password: "",
     password2: "",
-    username: "",
   });
-  const { name, email, password, password2, username } = user;
+  const { firstName, lastName, email, handphone, hpCountryCode, password, password2 } = user;
 
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
 
-  const responseFacebook = async (res) => {
-    facebookLogin({
-      email: res.email,
-      name: res.name,
-    });
-  };
+  // const responseFacebook = async (res) => {
+  //   facebookLogin({
+  //     email: res.email,
+  //     name: res.name,
+  //   });
+  // };
 
-  const responseGoogle = (res) => {
-    if (res.profileObj) {
-      googleLogin({
-        email: res.profileObj.email,
-        name: res.profileObj.name,
-      });
-    }
-  };
+  // const responseGoogle = (res) => {
+  //   if (res.profileObj) {
+  //     googleLogin({
+  //       email: res.profileObj.email,
+  //       name: res.profileObj.name,
+  //     });
+  //   }
+  // };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (name === "" || email === "" || password === "" || username === "") {
-      setAlert("Mohon mengisi semua field", "danger");
-    } else if (document.getElementById("agreeToc").checked === false) {
-      setAlert("Mohon menyetujui ketentuan layanan", "danger");
+    if (firstName === "" || lastName === "" || handphone === "" || email === "" || password === "" || password2 === "") {
+      setAlert("Please provide all fields", "danger");
     } else if (password !== password2) {
-      setAlert("Password tidak cocok dengan konfirmasi password", "danger");
+      setAlert("Password is not the same with confirm password", "danger");
     } else {
       register({
-        name,
+        name: firstName + ' ' + lastName,
+        handphone,
+        hpCountryCode,
         email: email.toLowerCase(),
         password,
-        username,
       });
     }
   };
@@ -99,173 +87,115 @@ const Register = () => {
   }
 
   //name and email variables from facebook login
-  if (facebookName && facebookEmail) {
-    return <Redirect to={`/daftar-sosmed/${facebookName}/${facebookEmail}`} />;
-  }
+  // if (facebookName && facebookEmail) {
+  //   return <Redirect to={`/daftar-sosmed/${facebookName}/${facebookEmail}`} />;
+  // }
 
   //name and email variables from google login
-  if (googleName && googleEmail) {
-    return <Redirect to={`/daftar-sosmed/${googleName}/${googleEmail}`} />;
+  // if (googleName && googleEmail) {
+  //   return <Redirect to={`/daftar-sosmed/${googleName}/${googleEmail}`} />;
+  // }
+
+  if (registerDone === true) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '330px' }}>
+        <div
+          style={{
+            textAlign: "center",
+            padding: "2rem",
+            color: "white",
+            background: '#55342b',
+            width: '400px'
+          }}
+        >
+          <h2 style={{ color: 'white' }}>Thank you for registering.</h2>
+          <p>
+            Verify link has been sent to your email. Click the link inside email to activate your account.
+        </p>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <section className="page-section color">
+    <>
       <Helmet>
-        <title>Daftar Okebid</title>
-        <meta name="description" content={`Daftar dan Masuk Ke Okebid.`} />
+        <title>Jolika Register</title>
+        <meta name="description" content={`Register to Jolika`} />
       </Helmet>
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-6 mx-auto">
-            <div className="row">
-              {/* <div className="col-xs-6 col-6">
-                <FacebookLogin
-                  appId="2696342840601130" 
-                  fields="name,email"
-                  callback={responseFacebook}
-                  textButton="Daftar dengan Facebook"
-                  icon="fa-facebook"
-                  isMobile={false}
-                />
-              </div> */}
-              {/* <div className="col-xs-6">
-                <GoogleLogin
-                  clientId="66177611314-nif412qjqn4qq0ccl7bue40o5mk9jbc0.apps.googleusercontent.com"
-                  buttonText="Daftar dengan Google"
-                  onSuccess={responseGoogle}
-                  onFailure={responseGoogle}
-                />
-              </div> */}
-            </div>
-            <br />
-            <h3>Daftar Akun Baru</h3>
-            <br />
-            {(() => {
-              if (registerDone === true) {
-                return (
-                  <div
-                    style={{
-                      textAlign: "center",
-                      padding: "20px",
-                      background: "#4b89dc",
-                      color: "white",
-                    }}
-                  >
-                    <h2>Terima kasih sudah mendaftar.</h2>
-                    <p>
-                      Link verifikasi telah dikirim ke email Anda. Klik link di
-                      dalam email untuk mengaktifkan akun.
-                    </p>
+      <form onSubmit={onSubmit}>
+        <div id="layoutSign">
+          <div id="bgImage" style={{ background: 'url("https://www.canvaswebdesign.com/jolika/uploads/product8.jpg")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}></div>
+          <div id="Login">
+            <div id="loginCard">
+              <div className="container">
+                <h2 className="sectionTitle">WELCOME TO JOLIKA</h2>
+                <p>By creating an account you will be able to save your addresses and enjoy faster checkout.</p>
+                <h3 className="sectionTitle">CREATE AN ACCOUNT</h3>
+                <div className="divide">
+                  <div className="line">
+                    <span></span>
                   </div>
-                );
-              } else {
-                return (
-                  <form onSubmit={onSubmit} className="form-login">
-                    <div className="form-group">
-                      <label htmlFor="name" className="form_label">
-                        Nama Anda
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        placeholder="Isi nama Anda..."
-                        required
-                        value={name}
-                        onChange={onChange}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="email" className="form_label">
-                        Email Anda
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Isi alamat E-mail..."
-                        value={email}
-                        onChange={onChange}
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="email" className="form_label">
-                        Username Anda
-                      </label>
-                      <input
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        value={username}
-                        onChange={onChange}
-                        required
-                        maxLength="20"
-                      />
-                      <small className="form-text text-muted">
-                        Tulis username yang diinginkan (Maks 20 karakter)
-                      </small>
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="password" className="form_label">
-                        Password
-                      </label>
-                      <PasswordMask
-                        id="password"
-                        name="password"
-                        placeholder="Isi password..."
-                        value={password}
-                        onChange={onChange}
-                        buttonStyles={{ fontSize: "12px" }}
-                        minLength="8"
-                      />
-                      <small className="form-text text-muted">
-                        Password minimal 8 karakter
-                      </small>
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="passwor2" className="form_label">
-                        Konfirmasi Password
-                      </label>
-                      <PasswordMask
-                        name="password2"
-                        placeholder="Tulis ulang password..."
-                        value={password2}
-                        onChange={onChange}
-                        buttonStyles={{ fontSize: "12px" }}
-                        minLength="8"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="container_cbx">
-                        Saya telah membaca dan menyetujui{" "}
-                        <Link to="/syarat-ketentuan" target="_blank">
-                          Syarat dan Ketentuan Okebid.
-                        </Link>
-                        <input id="agreeToc" type="checkbox" />
-                        <span className="checkmark"></span>
-                      </label>
-                    </div>
-                    <button type="submit" className="my_button">
-                      DAFTAR <i className="fa fa-arrow-right"></i>
-                    </button>
-                  </form>
-                );
-              }
-            })()}
-
-            <br />
-            <div className="row">
-              <div className="col-md-12" style={{ textAlign: "center" }}>
-                <p style={{ color: "black" }}>
-                  Sudah punya akun? Silahkan <Link to="/login">LOGIN</Link>
-                </p>
+                  <div className="text-line">
+                    <span>CONTINUE WITH</span>
+                  </div>
+                  <div className="line">
+                    <span></span>
+                  </div>
+                </div>
+                <div className="sosmedButton">
+                  <div className="fbButton">
+                    <a href="#"><i className="fa fa-facebook-f"></i>  Facebook</a>
+                  </div>
+                  <div className="googleButton">
+                    <a href="#"><i className="fa fa-google"></i>  Google</a>
+                  </div>
+                </div>
+                <div className="divide">
+                  <div className="line">
+                    <span></span>
+                  </div>
+                  <div className="text-line">
+                    <span>OR</span>
+                  </div>
+                  <div className="line">
+                    <span></span>
+                  </div>
+                </div>
+                <div className="formLogin">
+                  <div className="inputName">
+                    <input required type="text" name="firstName" value={firstName} placeholder="First Name" onChange={onChange} />
+                    <input required type="text" name="lastName" value={lastName} placeholder="Last Name" onChange={onChange} />
+                  </div>
+                </div>
+                <div className="formLogin">
+                  <input required type="email" name="email" value={email} placeholder="Email" onChange={onChange} />
+                </div>
+                <div className="formLogin">
+                  <div className="Mobilelogin">
+                    <select required name="hpCountryCode" value={hpCountryCode} onChange={onChange}>
+                      <option value="+62">+62</option>
+                    </select>
+                    <input required type="number" name="handphone" value={handphone} placeholder="Mobile Phone" onChange={onChange} />
+                  </div>
+                </div>
+                <div className="formLogin">
+                  <input required type="password" value={password} name="password" minLength='8' placeholder="Password" onChange={onChange} />
+                </div>
+                <div className="formLogin">
+                  <input required type="password" value={password2} name="password2" minLength='8' placeholder="Confirm Password" onChange={onChange} />
+                </div>
+                <div className="registerButton">
+                  <button className="btn-block" type="submit" name="submit">REGISTER</button>
+                </div>
+                <p>Already have an account? <Link to="/login" style={{ color: '#eb9588' }}>Log in</Link></p>
+                <p>By signing up you agree to Jolika's Terms of Service and Privacy Policy</p>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </form>
+    </>
   );
 };
 

@@ -7,7 +7,6 @@ import "swiper/swiper-bundle.min.css";
 SwiperCore.use([Thumbs]);
 
 const DisplayImage = ({ images }) => {
-
   // store thumbs swiper instance
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
@@ -15,17 +14,17 @@ const DisplayImage = ({ images }) => {
     <div className="productImages">
       <Swiper thumbs={{ swiper: thumbsSwiper }} slidesPerView={1}>
         {images.map((image, index) => <SwiperSlide key={index}>
-          <img src={`${process.env.REACT_APP_APIURL}uploads/products/${image.fileName}`} alt="product images" />
+          <img style={{ borderRadius: '5px' }} src={`${process.env.REACT_APP_APIURL}uploads/products/${image.fileName}`} alt="product images" />
         </SwiperSlide>)}
       </Swiper>
-      <div style={{display:'flex', justifyContent:'center'}}>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Swiper
           onSwiper={setThumbsSwiper}
           watchSlidesVisibility
           watchSlidesProgress
           slidesPerView={3}
           spaceBetween={8}
-          style={{display:'flex', justifyContent:'center'}}
+          style={{ display: 'flex', justifyContent: 'center' }}
           breakpoints={{
             // when window width is >= 768px
             768: {
@@ -34,10 +33,10 @@ const DisplayImage = ({ images }) => {
             },
           }}
         >
-          {images.map((image, index) => 
-          <SwiperSlide key={index}>
-            <img src={`${process.env.REACT_APP_APIURL}uploads/products/thumbnails/${image.fileName}`} alt="product thumbnails" />
-          </SwiperSlide>)}
+          {images.map((image, index) =>
+            <SwiperSlide key={index}>
+              <img style={{ borderRadius: '5px' }} src={`${process.env.REACT_APP_APIURL}uploads/products/thumbnails/${image.fileName}`} alt="product thumbnails" />
+            </SwiperSlide>)}
         </Swiper>
       </div>
     </div>

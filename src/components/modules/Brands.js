@@ -13,7 +13,7 @@ const Brands = () => {
   useEffect(() => {
     loadBrands();
     //eslint-disable-next-line
-  }, []);
+  }, [locationId]);
 
   async function loadBrands() {
     try {
@@ -26,6 +26,8 @@ const Brands = () => {
       console.log(err);
     }
   }
+
+  if (brands.length === 0) return null;
 
   return (
     <section id="homeBrands" className="py-2">

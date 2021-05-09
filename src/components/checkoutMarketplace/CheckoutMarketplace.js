@@ -1,6 +1,5 @@
 import React, { useState, useContext, Fragment, useEffect } from 'react';
 
-import MarketplaceStepper from '../cart/MarketplaceStepper';
 import AlamatPengiriman from './AlamatPengiriman';
 import Preview from './Preview';
 import Total from './Total';
@@ -28,7 +27,6 @@ const Coba = () => {
       <div className='wrapp'>
         <div className='row'>
           <div className='col-md-12'>
-            <MarketplaceStepper step={2} />
           </div>
           <div className='col-md-12'>
             <AlamatPengiriman formData={formData} setFormData={setFormData} />

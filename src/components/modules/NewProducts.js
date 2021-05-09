@@ -27,21 +27,25 @@ const NewProducts = () => {
     }
   }
 
-  return (
-    <section id="homeNewIn" className="py-2">
-      <div className="container">
-        <h2 className="sectionTitle">NEW IN</h2>
-        <Swiper slidesPerView={4} spaceBetween={20}>
-          {products &&
-            products.map((product, index) => (
-              <SwiperSlide key={index}>
-                <ProductItem product={product} />
-              </SwiperSlide>
-            ))}
-        </Swiper>
-      </div>
-    </section>
-  );
+  if (products.length > 0) {
+    return (
+      <section id="homeNewIn" className="py-2">
+        <div className="container">
+          <h2 className="sectionTitle">NEW IN</h2>
+          <Swiper slidesPerView={4} spaceBetween={20}>
+            {products &&
+              products.map((product, index) => (
+                <SwiperSlide key={index}>
+                  <ProductItem product={product} />
+                </SwiperSlide>
+              ))}
+          </Swiper>
+        </div>
+      </section>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default NewProducts;

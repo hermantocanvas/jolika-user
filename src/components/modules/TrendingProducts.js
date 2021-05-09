@@ -29,6 +29,8 @@ const TrendingProducts = () => {
     }
   }
 
+  if (products.length === 0) return null;
+
   return (
     <section id="homeNewIn" className="py-2">
       <div className="container">

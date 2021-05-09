@@ -18,7 +18,7 @@ const VerifyRegister = ({ match }) => {
   //check if user is authenticated, if yes, then redirect to  homepage
   if (registerSuccess) {
     setAlert(
-      "Anda telah terdaftar. Silahkan login untuk melanjutkan.",
+      "Registration success and account activated. Please login to continue.",
       "success"
     );
     return <Redirect to="/login" />;
@@ -30,12 +30,12 @@ const VerifyRegister = ({ match }) => {
         <div className="row">
           <div className="col-sm-6 col-sm-offset-3">
             <h3 className="block-title">
-              <span>Verifikasi Pendaftaran</span>
+              <span>Registration Verification</span>
             </h3>
             {registerSuccess ? (
-              <p>Sedang melakukan verifikasi...</p>
+              <p>Please wait. Doing verification...</p>
             ) : (
-              <p>Pendaftaran tidak berhasil.</p>
+              <p>Registration not successful.</p>
             )}
           </div>
         </div>

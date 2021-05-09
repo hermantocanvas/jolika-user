@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, Fragment, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import Stepper from '../cart/MarketplaceStepper';
 import AuthContext from '../../context/auth/authContext';
+import { Link } from 'react-router-dom';
 import queryString from 'query-string';
 const Thankyou = (props) => {
   const authContext = useContext(AuthContext);
@@ -48,7 +47,7 @@ const Thankyou = (props) => {
       <div className='wrapp product_detail'>
         <div className='row'>
           <div className='col-md-12'>
-            <Stepper step={4} />
+
             <div class='ck_thankyou'>
               <i class='fa fa-check-circle'></i>
               <h3>Terima kasih untuk pembelian Anda.</h3>

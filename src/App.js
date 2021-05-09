@@ -17,9 +17,6 @@ import NotFound from "./components/modules/NotFound";
 import Alerts from "./components/modules/Alerts";
 import Account from "./components/account/Account";
 import CustomerRoute from "./components/routing/CustomerRoute";
-import EditProduct from "./components/account/products/editProduct/EditProduct";
-import EditBuyerOrder from "./components/account/orders/EditBuyerOrder";
-import EditSellerOrder from "./components/account/orders/EditSellerOrder";
 import CheckoutMarketplace from "./components/checkoutMarketplace/CheckoutMarketplace";
 import Cart from "./components/cart/Cart";
 import ScrollToTop from "./utils/ScrollToTop";
@@ -30,9 +27,7 @@ import Contact from "./components/Contact";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import { Helmet } from "react-helmet";
 import Thankyou from "./components/checkoutMarketplace/Thankyou";
-import EditVariant from "./components/account/products/editVariant/EditVariant";
 import Pembayaran from "./components/checkoutMarketplace/pembayaran/Pembayaran";
-
 import AlertState from "./context/alert/AlertState";
 import AuthState from "./context/auth/authState";
 import CartState from "./context/cart/cartState";
@@ -107,29 +102,12 @@ const App = () => {
                       component={Account}
                     />
                     <CustomerRoute
-                      path="/account-edit-product/:id"
-                      component={EditProduct}
-                    />
-                    <CustomerRoute
-                      path="/account-edit-variant/:id"
-                      component={EditVariant}
-                    />
-                    <CustomerRoute
                       path="/checkout/:paymentId"
                       component={Pembayaran}
                     />
                     <CustomerRoute
                       path="/checkout"
                       component={CheckoutMarketplace}
-                    />
-
-                    <CustomerRoute
-                      path="/account-edit-buy/:orderId"
-                      component={EditBuyerOrder}
-                    />
-                    <CustomerRoute
-                      path="/account-edit-sell/:orderId"
-                      component={EditSellerOrder}
                     />
                     <Route path="/" component={NotFound} />
                   </Switch>

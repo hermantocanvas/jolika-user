@@ -26,7 +26,7 @@ import {
 
 const AuthState = (props) => {
   const initialState = {
-    isAuthenticated: false, 
+    isAuthenticated: false,
     user: null,
     error: null,
     lastProductPage: null, //last product page visited by user
@@ -60,7 +60,7 @@ const AuthState = (props) => {
     } catch (err) {
       dispatch({
         type: REGISTER_FAIL,
-        payload: err.message,
+        payload: err.response.data,
       });
     }
   };
@@ -86,7 +86,7 @@ const AuthState = (props) => {
     } catch (err) {
       dispatch({
         type: REGISTER_FAIL,
-        payload: err.message,
+        payload: err.response.data,
       });
     }
   };
@@ -110,12 +110,11 @@ const AuthState = (props) => {
         type: LOGIN_SUCCESS,
         payload: res.data,
       });
-
       loadUser();
     } catch (err) {
       dispatch({
         type: LOGIN_FAIL,
-        payload: err.message,
+        payload: err.response.data,
       });
     }
   };
@@ -152,7 +151,7 @@ const AuthState = (props) => {
     } catch (err) {
       dispatch({
         type: FACEBOOK_LOGIN_FAIL,
-        payload: err.message,
+        payload: err.response.data,
       });
     }
   };
@@ -189,7 +188,7 @@ const AuthState = (props) => {
     } catch (err) {
       dispatch({
         type: FACEBOOK_LOGIN_FAIL,
-        payload: err.message,
+        payload: err.response.data,
       });
     }
   };
@@ -211,7 +210,7 @@ const AuthState = (props) => {
     } catch (err) {
       dispatch({
         type: VERIFY_REGISTER_FAIL,
-        payload: err.message,
+        payload: err.response.data,
       });
     }
   };

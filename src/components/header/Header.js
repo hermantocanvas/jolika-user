@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import TopNav from "./TopNav";
 import Search from "./Search";
 import LocationMenu from "./LocationMenu";
 import LocationMenuMobile from "./LocationMenuMobile";
+import AuthContext from "../../context/auth/authContext";
+import CartContext from '../../context/cart/cartContext';
 
 const Header = () => {
+  const { isAuthenticated, currentUser, loadUser } = useContext(AuthContext);
+  const { getCartCount } = useContext(CartContext);
+
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      loadUser();
+    }
+    //eslint-disable-next-line 
+  }, []);
+
   return (
     <section id="main-nav">
       <div id="top-nav">
@@ -43,18 +56,36 @@ const Header = () => {
           <LocationMenu />
           <Search />
           <div id="accountIcons">
-            <Link to="/" className="sign-up">
-              Sign Up
-            </Link>
-            <span className="sign-up">|</span>
-            <Link to="/" className="sign-up">
-              Login
-            </Link>
+
+            {isAuthenticated && currentUser ? (
+              <>
+                <Link
+                  to="/account/dashboard"
+                  className="sign-up"
+                >
+                  <i className="fa fa-cog"></i> {currentUser.name}
+                </Link>
+                <span className="sign-up">|</span>
+                <Link to="/logout" className="sign-up">
+                  Logout
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/register" className="sign-up">
+                  Sign Up
+                </Link>
+                <span className="sign-up">|</span>
+                <Link to="/login" className="sign-up">
+                  Login
+                </Link>
+              </>
+            )}
             <div id="cart">
-              <Link to="/">
+              <Link to="/cart">
                 <i className="tiny material-icons">shopping_basket</i>
               </Link>
-              <span id="cartQty">0</span>
+              <span id="cartQty">{getCartCount()}</span>
             </div>
           </div>
           <LocationMenuMobile />

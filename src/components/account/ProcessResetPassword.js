@@ -44,9 +44,9 @@ const ProcessResetPassword = ({ match }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (password === '' || password2 === '') {
-      setAlert('Mohon mengisi field password', 'danger');
+      setAlert('Please fill in the password field.', 'danger');
     } else if (password !== password2) {
-      setAlert('Password tidak cocok dengan konfirmasi password', 'danger');
+      setAlert('Password does not match password confirmation.', 'danger');
     } else {
       resetPassword();
     }
@@ -67,7 +67,7 @@ const ProcessResetPassword = ({ match }) => {
         setPasswordChanged(true);
 
         setAlert(
-          'Password berhasil dirubah. Silahkan Login untuk melanjutkan',
+          'Password changed successfully. Please login to continue.',
           'success'
         );
 
@@ -75,7 +75,7 @@ const ProcessResetPassword = ({ match }) => {
       } catch (err) {
         setLoadSpinner(false);
         if (err.response) {
-          setAlert(err.response.data.error, 'danger');
+          setAlert(err.response.data, 'danger');
         }
       }
     }
@@ -98,50 +98,42 @@ const ProcessResetPassword = ({ match }) => {
     return (
       <section className='page-section color'>
         <Helmet>
-          <title>Reset Password Lelang Online | Okebid</title>
+          <title>Reset Password</title>
           <meta
             name='description'
-            content={`Reset Password Okebid. Lelang Online Aman dan Nyaman hanya di Okebid.`}
+            content={`Reset Password.`}
           />
         </Helmet>
-        <div className='container'>
+        <div className="container loginRegister" style={{ maxWidth: '550px', paddingTop: '4rem', paddingBottom: '4rem' }}>
           <div className='row'>
             <div className='col-sm-6 col-sm-offset-3'>
-              <h3 className='block-title'>
-                <span>Reset Password</span>
-              </h3>
+              <h3 className="sectionTitleacc">RESET PASSWORD</h3>
               {(() => {
                 if (passwordChanged === false) {
                   return (
                     <form onSubmit={onSubmit} className='form-login'>
                       <div className='row'>
-                        <div className='col-md-12'>
-                          <div className='form-group'>
-                            <input
-                              className='form-control'
-                              type='password'
-                              name='password'
-                              placeholder='Password baru Okebid. Minimal 8 karakter'
-                              value={password}
-                              onChange={onChange}
-                              required
-                              minLength='8'
-                            />
-                          </div>
+                        <div className="formLogin">
+                          <input
+                            type='password'
+                            name='password'
+                            placeholder='New Password'
+                            value={password}
+                            onChange={onChange}
+                            required
+                            minLength='8'
+                          />
                         </div>
-                        <div className='col-md-12'>
-                          <div className='form-group'>
-                            <input
-                              className='form-control'
-                              type='password'
-                              name='password2'
-                              placeholder='Konfirmasi password baru Okebid'
-                              value={password2}
-                              onChange={onChange}
-                              required
-                              minLength='8'
-                            />
-                          </div>
+                        <div className="formLogin">
+                          <input
+                            type='password'
+                            name='password2'
+                            placeholder='Confirm New Password'
+                            value={password2}
+                            onChange={onChange}
+                            required
+                            minLength='8'
+                          />
                         </div>
                         {(() => {
                           if (loadSpinner) {
@@ -156,7 +148,7 @@ const ProcessResetPassword = ({ match }) => {
                                   height={100}
                                   width={100}
                                 />
-                                <p>Mohon tunggu, merubah password...</p>
+                                <p>Please wait, changing...</p>
                               </div>
                             );
                           } else {
@@ -176,8 +168,8 @@ const ProcessResetPassword = ({ match }) => {
                   );
                 } else {
                   return (
-                    <p>
-                      Klik <Link to='/login'>LOGIN</Link> untuk melanjutkan.
+                    <p style={{ textAlign: 'center' }}>
+                      Click <Link to='/login'>LOGIN</Link> to continue.
                     </p>
                   );
                 }
@@ -191,19 +183,17 @@ const ProcessResetPassword = ({ match }) => {
     return (
       <section className='page-section color'>
         <Helmet>
-          <title>Reset Password Lelang Online | Okebid</title>
+          <title>Reset Password</title>
           <meta
             name='description'
-            content={`Reset Password Okebid. Lelang Online Aman dan Nyaman hanya di Okebid.`}
+            content={`Reset Password.`}
           />
         </Helmet>
-        <div className='container'>
+        <div className="container loginRegister" style={{ maxWidth: '550px', paddingTop: '4rem', paddingBottom: '4rem' }}>
           <div className='row'>
             <div className='col-sm-6 col-sm-offset-3'>
-              <h3 className='block-title'>
-                <span>Reset Password</span>
-              </h3>
-              <p>Link email tidak valid atau telah expired.</p>
+              <h3 className="sectionTitleacc">RESET PASSWORD</h3>
+              <p style={{ textAlign: 'center' }}>Email link not valid or expired.</p>
             </div>
           </div>
         </div>
