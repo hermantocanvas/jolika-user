@@ -26,11 +26,11 @@ const CartState = (props) => {
     });
   };
 
-  const removeItemFromCart = ({ id }) => {
-    dispatch({ type: CART_REMOVE_ITEM, payload: { id } });
+  const removeItemFromCart = (index) => {
+    dispatch({ type: CART_REMOVE_ITEM, payload: index });
   };
 
-  const incrementAmount = ({ id }) => {
+  const incrementAmount = (id) => {
     const item = getCartItemById(id);
     if (!item) return;
     item.quantity++;

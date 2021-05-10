@@ -71,14 +71,15 @@ function Orders() {
 
   return (
     <>
-      <div className="information-title">Pembelian Anda</div>
+      <div className="information-title">Your Purchases</div>
       <table className="table table-striped">
         <thead>
           <tr>
-            <th>Tgl Order</th>
-            <th>Program &amp; Jadwal</th> 
-            <th>Harga</th>
+            <th>Order Date</th>
+            <th>Products</th>
+            <th>Price</th>
             <th>Grand Total</th>
+            <th>Vendor</th>
             <th>Status</th>
             <th>Detail</th>
           </tr>

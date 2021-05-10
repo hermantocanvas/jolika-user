@@ -23,8 +23,8 @@ export default (state, action) => {
   }
 
   if (action.type === CART_REMOVE_ITEM) {
-    const newCart = state.cart.filter((c) => c.id !== action.payload.id);
-
+    const newCart = state.cart;
+    newCart.splice(action.payload, 1); //remove 1 item from array with index of action.payload
     localStorage.setItem('cart200', JSON.stringify(newCart));
     return {
       ...state,

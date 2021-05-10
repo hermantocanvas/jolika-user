@@ -15,7 +15,7 @@ function Address() {
   async function loadAddresses() {
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_APIURL}api/v1/users/bypartner`
+        `${process.env.REACT_APP_APIURL}api/v1/users/getaddress`
       );
       setAddresses(res.data.data);
 
@@ -28,6 +28,7 @@ function Address() {
     <>
       <div className="information-title">Your Shipping Addresses</div>
       <Link className="btn btn-brown" to="/account/add-address"><i className="fa fa-plus"></i> ADD NEW ADDRESS</Link>
+      <br /><br />
       <p style={{ marginTop: '10px' }}>No shipping address. Please add new address.</p>
     </>
   );
@@ -36,6 +37,7 @@ function Address() {
     <>
       <div className="information-title">Your Shipping Addresses</div>
       <Link className="btn btn-brown" to="/account/add-address"><i className="fa fa-plus"></i> ADD NEW ADDRESS</Link>
+      <br /><br />
       <table className="table table-striped">
         <thead>
           <tr>

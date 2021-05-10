@@ -55,7 +55,9 @@ const Product = ({ match }) => {
     chosenVariantDetail3: null,
     hasVariant: false,
     chosenOptions: [],
-    chosenDate: new Date()
+    chosenDate: new Date(),
+    customerNote: false,
+    customNoteMessage: null
   });
   const { images, price, discountedPrice, qty, productName, stock, chosenVariant1, chosenVariant2, chosenVariant3, chosenVariantDetail1, chosenVariantDetail2, chosenVariantDetail3, chosenDate } = chosenProduct;
   const [selectedOption, setSelectedOption] = useState(null);
@@ -143,7 +145,9 @@ const Product = ({ match }) => {
         chosenVariantDetail2: product.chosenVariant2.variantDetails[0],
         chosenVariant3: product.chosenVariant3.name,
         chosenVariantDetail3: product.chosenVariant3.variantDetails[0],
-        hasVariant: product.hasVariant
+        hasVariant: product.hasVariant,
+        customerNote: false,
+        customNoteMessage: null
       });
     } else {
       //product without variant
@@ -166,7 +170,9 @@ const Product = ({ match }) => {
         chosenVariantDetail2: null,
         chosenVariant3: null,
         chosenVariantDetail3: null,
-        hasVariant: product.hasVariant
+        hasVariant: product.hasVariant,
+        customerNote: false,
+        customNoteMessage: null
       });
     }
   }
@@ -311,6 +317,11 @@ const Product = ({ match }) => {
 
   const handleBuy = () => {
     //send to cartState
+    if (!chosenDate) {
+      setAlert('Please add delivery date', 'danger');
+      return false;
+    }
+
     addItemToCart(chosenProduct);
     setAlert(`Product added to cart. Click on cart icon to checkout`, "success");
   };

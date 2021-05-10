@@ -121,7 +121,7 @@ function AddAddress() {
       geolocation: e.target.value
     });
 
-    addGeolocation(e.target.value);
+    //addGeolocation(e.target.value);
   }
 
   const onSubmit = async (e) => {
@@ -173,11 +173,11 @@ function AddAddress() {
 
     try {
       await axios.post(
-        `${process.env.REACT_APP_APIURL}api/v1/cities`,
+        `${process.env.REACT_APP_APIURL}api/v1/users/createuseraddress`,
         formData
       );
-      setAlert("City saved.", "success");
-      history.push("/admin/cities");
+      setAlert("Address saved.", "success");
+      history.push("/account/address");
     } catch (err) {
       setAlert(err.response.data, "danger");
     }
@@ -250,7 +250,7 @@ function AddAddress() {
       ...addressInfo,
       longitude,
       latitude,
-      geolocation
+      geolocation,
     });
   };
 

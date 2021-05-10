@@ -26,7 +26,7 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import { Helmet } from "react-helmet";
-import Thankyou from "./components/checkoutMarketplace/Thankyou";
+import Thankyou from "./components/Thankyou";
 import Pembayaran from "./components/checkoutMarketplace/pembayaran/Pembayaran";
 import AlertState from "./context/alert/AlertState";
 import AuthState from "./context/auth/authState";

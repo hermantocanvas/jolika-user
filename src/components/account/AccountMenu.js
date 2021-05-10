@@ -51,11 +51,11 @@ const AccountMenu = () => {
                   <i className="fa fa-truck"></i> Shipping Addresses
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/account/ganti-password">
                   <i className="fa fa-key"></i> Change Password
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

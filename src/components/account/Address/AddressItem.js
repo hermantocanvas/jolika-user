@@ -1,10 +1,10 @@
 import React from 'react';
 
-function AddressItem(props) {
+function AddressItem({ address }) {
   return (
     <tr>
-      <td>Home Address</td>
-      <td>Jl A gg Dermawan 5 No 1A Karang Anyar rt5 rw 4. Jakpus 10740</td>
+      <td>{address.addressType}</td>
+      <td>{address.address}</td>
       <td>Sawah Besar</td>
       <td>Jakarta Pusat</td>
       <td>DKI Jakarta</td>

@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import CartContext from "../../context/cart/cartContext";
 import AlertContext from "../../context/alert/alertContext";
 import { Link } from "react-router-dom";
 
@@ -10,16 +9,9 @@ const formatter = new Intl.NumberFormat("id-ID", {
   minimumFractionDigits: 0,
 });
 
-const CartItem = ({ product, index, onDecreaseQty, onIncreaseQty }) => {
+const CartItem = ({ product, index, onDecreaseQty, onIncreaseQty, deleteCartItem, handleAddNote, editCustomerNote }) => {
   const alertContext = useContext(AlertContext);
   const { setAlert } = alertContext;
-  const cartContext = useContext(CartContext);
-  const {
-    incrementAmount,
-    decrementAmount,
-    removeItemFromCart,
-    updateNote,
-  } = cartContext;
 
   //set pricing
   let productPrice;
@@ -42,13 +34,13 @@ const CartItem = ({ product, index, onDecreaseQty, onIncreaseQty }) => {
           product.chosenOptions.map((option, index) => <span key={index} style={{ fontStyle: 'italic' }}>{option.label}. </span>)
         }
         <div className="create">
-          <input type="checkbox" name="account-create" onclick="notedChecked()" /> Add Note
+          <input type="checkbox" checked={product.customerNote} onClick={() => handleAddNote(index)} /> Add Note
 				</div>
-        <div id="noted">
+        {product.customerNote === true && <div id="noted">
           <div className="message">
-            <textarea name="message" placeholder="Message"></textarea>
+            <textarea placeholder="Message" value={product.customNoteMessage} onChange={(e) => editCustomerNote(e, index)}></textarea>
           </div>
-        </div>
+        </div>}
       </td>
       <td data-header="Price &nbsp; :">
         <span>{formatter.format(productPrice)}</span>
@@ -73,7 +65,7 @@ const CartItem = ({ product, index, onDecreaseQty, onIncreaseQty }) => {
         </div>
       </td>
       <td data-header="Subtotal&nbsp; :"><span><span>{formatter.format(productPrice * product.qty)}</span></span></td>
-      <td><a href="#"><i className="fa fa-trash"></i></a></td>
+      <td><Link to="#" onClick={() => deleteCartItem(index)}><i className="fa fa-trash"></i></Link></td>
     </tr>
   );
 };
